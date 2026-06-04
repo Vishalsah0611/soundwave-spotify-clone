@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SoundWave — Music for Everyone</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Satoshi:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body>
+
+<!-- AUTH OVERLAY -->
+<div id="authOverlay" class="auth-overlay">
+  <div class="auth-box">
+    <div class="auth-logo"><i class="fa-solid fa-wave-square"></i> SoundWave</div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchTab('login')">Login</button>
+      <button class="auth-tab" onclick="switchTab('register')">Register</button>
+    </div>
+    <!-- Login -->
+    <div id="loginForm" class="auth-form">
+      <input type="email" id="loginEmail" placeholder="Email" value="demo@soundwave.com"/>
+      <input type="password" id="loginPass" placeholder="Password" value="demo123"/>
+      <button class="btn-primary" onclick="doLogin()">Sign In</button>
+      <p class="auth-hint">Demo: demo@soundwave.com / demo123</p>
+    </div>
+    <!-- Register -->
+    <div id="registerForm" class="auth-form hidden">
+      <input type="text" id="regName" placeholder="Full Name"/>
+      <input type="email" id="regEmail" placeholder="Email"/>
+      <input type="password" id="regPass" placeholder="Password"/>
+      <button class="btn-primary" onclick="doRegister()">Create Account</button>
+    </div>
+    <div id="authMsg" class="auth-msg"></div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="mainApp" class="app hidden">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo"><i class="fa-solid fa-wave-square"></i><span>SoundWave</span></div>
+    <nav class="sidebar-nav">
+      <a class="nav-item active" onclick="showSection('home')" data-section="home"><i class="fa-solid fa-house"></i>Home</a>
+      <a class="nav-item" onclick="showSection('search')" data-section="search"><i class="fa-solid fa-magnifying-glass"></i>Search</a>
+      <a class="nav-item" onclick="showSection('liked')" data-section="liked"><i class="fa-solid fa-heart"></i>Liked Songs</a>
+      <a class="nav-item" onclick="showSection('upload')" data-section="upload"><i class="fa-solid fa-cloud-arrow-up"></i>Upload</a>
+    </nav>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-playlists">
+      <div class="pl-header">
+        <span>Your Playlists</span>
+        <button class="btn-icon" onclick="openCreatePlaylist()" title="New Playlist"><i class="fa-solid fa-plus"></i></button>
+      </div>
+      <div id="sidebarPlaylists" class="pl-list"></div>
+    </div>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar"><i class="fa-solid fa-user"></i></div>
+        <span id="sidebarUsername">User</span>
+      </div>
+      <a href="/logout" class="btn-icon logout-btn" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- HOME -->
+    <section id="sec-home" class="section active">
+      <div class="section-header">
+        <h1 id="greetingText">Good Evening 👋</h1>
+        <p>Discover your next favourite track</p>
+      </div>
+      <div class="stats-row" id="statsRow"></div>
+      <h2 class="section-title">Trending Songs</h2>
+      <div id="homeSongs" class="songs-grid"></div>
+    </section>
+
+    <!-- SEARCH -->
+    <section id="sec-search" class="section hidden">
+      <div class="section-header">
+        <h1>Search Music</h1>
+      </div>
+      <div class="search-bar-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input id="searchInput" type="text" placeholder="Artists, songs, albums..." oninput="doSearch()"/>
+        <select id="genreFilter" onchange="doSearch()">
+          <option value="">All Genres</option>
+          <option>Electronic</option><option>Lo-Fi</option><option>Pop</option>
+          <option>Rock</option><option>Hip-Hop</option><option>Acoustic</option>
+          <option>Folk</option><option>Classical</option><option>Jazz</option><option>Other</option>
+        </select>
+      </div>
+      <div id="searchResults" class="songs-list"></div>
+    </section>
+
+    <!-- LIKED -->
+    <section id="sec-liked" class="section hidden">
+      <div class="section-header liked-header">
+        <div class="liked-icon"><i class="fa-solid fa-heart"></i></div>
+        <div>
+          <h1>Liked Songs</h1>
+          <p id="likedCount">0 songs</p>
+        </div>
+      </div>
+      <div id="likedList" class="songs-list"></div>
+    </section>
+
+    <!-- UPLOAD -->
+    <section id="sec-upload" class="section hidden">
+      <div class="section-header"><h1>Upload Music</h1><p>Share your tracks with the world</p></div>
+      <div class="upload-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Song Title *</label>
+            <input type="text" id="upTitle" placeholder="Enter song title"/>
+          </div>
+          <div class="form-group">
+            <label>Artist Name *</label>
+            <input type="text" id="upArtist" placeholder="Artist name"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Album</label>
+            <input type="text" id="upAlbum" placeholder="Album name"/>
+          </div>
+          <div class="form-group">
+            <label>Genre</label>
+            <select id="upGenre">
+              <option>Electronic</option><option>Lo-Fi</option><option>Pop</option>
+              <option>Rock</option><option>Hip-Hop</option><option>Acoustic</option>
+              <option>Folk</option><option>Classical</option><option>Jazz</option><option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="drop-zone" id="audioDropZone" onclick="document.getElementById('audioFile').click()">
+            <i class="fa-solid fa-music"></i>
+            <p>Drop audio file here or click</p>
+            <span>MP3, WAV, OGG, FLAC</span>
+            <input type="file" id="audioFile" accept=".mp3,.wav,.ogg,.flac" hidden onchange="handleAudioSelect(this)"/>
+          </div>
+          <div class="drop-zone" id="coverDropZone" onclick="document.getElementById('coverFile').click()">
+            <i class="fa-solid fa-image"></i>
+            <p>Drop cover image here or click</p>
+            <span>PNG, JPG, WEBP</span>
+            <input type="file" id="coverFile" accept=".png,.jpg,.jpeg,.webp" hidden onchange="handleCoverSelect(this)"/>
+          </div>
+        </div>
+        <button class="btn-primary btn-upload" onclick="uploadSong()"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Song</button>
+        <div id="uploadMsg" class="upload-msg"></div>
+      </div>
+    </section>
+
+    <!-- PLAYLIST VIEW -->
+    <section id="sec-playlist" class="section hidden">
+      <div class="playlist-hero">
+        <div class="pl-hero-cover" id="plHeroCover"><i class="fa-solid fa-music"></i></div>
+        <div class="pl-hero-info">
+          <span class="pl-badge">Playlist</span>
+          <h1 id="plHeroName"></h1>
+          <p id="plHeroDesc"></p>
+          <div class="pl-hero-meta" id="plHeroMeta"></div>
+          <div class="pl-hero-actions">
+            <button class="btn-play-big" id="plPlayBtn" onclick="playPlaylist()"><i class="fa-solid fa-play"></i> Play All</button>
+            <button class="btn-icon-outline" onclick="deleteCurrentPlaylist()"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        </div>
+      </div>
+      <div id="playlistSongs" class="songs-list"></div>
+    </section>
+
+  </main>
+
+  <!-- PLAYER BAR -->
+  <div class="player-bar" id="playerBar">
+    <div class="player-track">
+      <div class="player-cover" id="playerCover"><i class="fa-solid fa-music"></i></div>
+      <div class="player-track-info">
+        <div class="player-title" id="playerTitle">No song selected</div>
+        <div class="player-artist" id="playerArtist">—</div>
+      </div>
+      <button class="btn-icon heart-btn" id="playerHeartBtn" onclick="toggleCurrentLike()"><i class="fa-regular fa-heart"></i></button>
+    </div>
+    <div class="player-controls">
+      <button class="btn-icon ctrl-btn" id="shuffleBtn" onclick="toggleShuffle()" title="Shuffle"><i class="fa-solid fa-shuffle"></i></button>
+      <button class="btn-icon ctrl-btn" onclick="prevSong()" title="Previous"><i class="fa-solid fa-backward-step"></i></button>
+      <button class="btn-icon play-pause-btn" id="playPauseBtn" onclick="togglePlay()"><i class="fa-solid fa-play"></i></button>
+      <button class="btn-icon ctrl-btn" onclick="nextSong()" title="Next"><i class="fa-solid fa-forward-step"></i></button>
+      <button class="btn-icon ctrl-btn" id="repeatBtn" onclick="toggleRepeat()" title="Repeat"><i class="fa-solid fa-repeat"></i></button>
+    </div>
+    <div class="player-progress-wrap">
+      <span id="currentTime">0:00</span>
+      <div class="progress-bar" id="progressBar" onclick="seekTo(event)">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-thumb" id="progressThumb"></div>
+      </div>
+      <span id="totalTime">0:00</span>
+    </div>
+    <div class="player-volume">
+      <button class="btn-icon" onclick="toggleMute()" id="muteBtn"><i class="fa-solid fa-volume-high"></i></button>
+      <input type="range" id="volumeSlider" min="0" max="100" value="80" oninput="setVolume(this.value)"/>
+    </div>
+  </div>
+
+</div>
+
+<!-- CREATE PLAYLIST MODAL -->
+<div id="createPlaylistModal" class="modal hidden">
+  <div class="modal-box">
+    <div class="modal-header"><h3>New Playlist</h3><button class="btn-icon" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+    <input type="text" id="newPlName" placeholder="Playlist name"/>
+    <input type="text" id="newPlDesc" placeholder="Description (optional)"/>
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="closeModal()">Cancel</button>
+      <button class="btn-primary" onclick="createPlaylist()">Create</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD TO PLAYLIST MODAL -->
+<div id="addToPlaylistModal" class="modal hidden">
+  <div class="modal-box">
+    <div class="modal-header"><h3>Add to Playlist</h3><button class="btn-icon" onclick="closeAddModal()"><i class="fa-solid fa-xmark"></i></button></div>
+    <div id="playlistPickerList"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast hidden"></div>
+
+<audio id="audioPlayer" preload="auto"></audio>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>

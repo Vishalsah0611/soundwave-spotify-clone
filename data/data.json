@@ -1,0 +1,117 @@
+{
+  "songs": [
+    {
+      "id": "s1",
+      "title": "Midnight Vibes",
+      "artist": "DJ SoundWave",
+      "album": "Neon Nights",
+      "genre": "Electronic",
+      "duration": 214,
+      "plays": 1520,
+      "file": "",
+      "cover": "",
+      "uploaded_by": "demo_user",
+      "date": "2024-01-10"
+    },
+    {
+      "id": "s2",
+      "title": "Lo-Fi Dreams",
+      "artist": "Chill Beats",
+      "album": "Study Session",
+      "genre": "Lo-Fi",
+      "duration": 180,
+      "plays": 3200,
+      "file": "",
+      "cover": "",
+      "uploaded_by": "demo_user",
+      "date": "2024-01-12"
+    },
+    {
+      "id": "s3",
+      "title": "Rainy Day",
+      "artist": "Acoustic Soul",
+      "album": "Monsoon Moods",
+      "genre": "Acoustic",
+      "duration": 195,
+      "plays": 890,
+      "file": "",
+      "cover": "",
+      "uploaded_by": "demo_user",
+      "date": "2024-01-15"
+    },
+    {
+      "id": "s4",
+      "title": "City Lights",
+      "artist": "Urban Echo",
+      "album": "Skyline",
+      "genre": "Pop",
+      "duration": 230,
+      "plays": 4100,
+      "file": "",
+      "cover": "",
+      "uploaded_by": "demo_user",
+      "date": "2024-01-18"
+    },
+    {
+      "id": "s5",
+      "title": "Mountain High",
+      "artist": "Folk Tales",
+      "album": "Journey",
+      "genre": "Folk",
+      "duration": 260,
+      "plays": 670,
+      "file": "",
+      "cover": "",
+      "uploaded_by": "demo_user",
+      "date": "2024-01-20"
+    }
+  ],
+  "playlists": [
+    {
+      "id": "p1",
+      "name": "My Favourites",
+      "description": "All time best songs",
+      "songs": [
+        "s1",
+        "s2"
+      ],
+      "created_by": "demo_user",
+      "cover": "",
+      "date": "2024-01-01"
+    },
+    {
+      "id": "p2",
+      "name": "Study Mode",
+      "description": "Focus music playlist",
+      "songs": [
+        "s2",
+        "s3"
+      ],
+      "created_by": "demo_user",
+      "cover": "",
+      "date": "2024-01-05"
+    }
+  ],
+  "users": [
+    {
+      "id": "demo_user",
+      "username": "Demo User",
+      "email": "demo@soundwave.com",
+      "password": "62cc2d8b4bf2d8728120d052163a77df",
+      "avatar": "",
+      "joined": "2026-06-04"
+    },
+    {
+      "id": "3134d4a0",
+      "username": "vishal",
+      "email": "vishalji0611@gmail.com",
+      "password": "e10adc3949ba59abbe56e057f20f883e",
+      "avatar": "",
+      "joined": "2026-06-04"
+    }
+  ],
+  "liked_songs": {
+    "demo_user": [],
+    "3134d4a0": []
+  }
+}
